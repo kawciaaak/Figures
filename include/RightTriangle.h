@@ -2,12 +2,11 @@
 #include "Triangle.h"
 #include <algorithm>
 
-// The RightTriangle class represents a right triangle in 2D space.
 class RightTriangle : public Triangle
 {
 public:
     RightTriangle() = default;
-    RightTriangle(Point pointA, Point pointB, Point pointC);
+    RightTriangle(const Point pointA, const Point pointB, const Point pointC);
     ~RightTriangle() = default;
 
     double getHypotenuseLength() const;

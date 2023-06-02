@@ -1,6 +1,6 @@
-#include "include/RightTriangle.h"
+#include "../include/RightTriangle.h"
 
-RightTriangle::RightTriangle(Point pointA, Point pointB, Point pointC) {
+RightTriangle::RightTriangle(const Point pointA, const Point pointB, const Point pointC) {
     points.push_back(pointA);
     points.push_back(pointB);
     points.push_back(pointC);

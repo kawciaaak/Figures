@@ -1,14 +1,14 @@
-#include "include/Figure.h
+#include "../include/Figure.h"
 
 void Figure::moveByVector(double x, double y) {
     for (auto& point : points) {
-        point.movePointByVector(x, y);
+        point.moveByVector(x, y);
     }
 }
 
 void Figure::rotateAroundPoint(double x, double y, double angle) {
     for (auto& point : points) {
-        point.rotatePoint(x, y, angle);
+        point.rotate(x, y, angle);
     }
 }
 
@@ -21,7 +21,6 @@ void Figure::createLinearFunction(const Point& startPoint, const Point& endPoint
         b = startPoint.getY() - a * startPoint.getX();
     }
     else {
-        // Handle the case of a vertical line
         a = std::numeric_limits<double>::infinity();
         b = startPoint.getX();
     }

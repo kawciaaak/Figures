@@ -1,9 +1,10 @@
-#include "include/Triangle.h"
+#include "../include/Triangle.h"
 
-Triangle::Triangle(Point _a, Point _b, Point _c) {
-    points.push_back(_a);
-    points.push_back(_b);
-    points.push_back(_c);
+
+Triangle::Triangle(const Point pointA, const Point pointB, const Point pointC) {
+    points.push_back(pointA);
+    points.push_back(pointB);
+    points.push_back(pointC);
 }
 
 std::string Triangle::getObjectName() const {
@@ -17,21 +18,21 @@ std::string Triangle::getObjectCoordinate() const {
 }
 
 double Triangle::perimeter() {
-    return points[0].distanceBetweenPoints(points[1]) +
-        points[1].distanceBetweenPoints(points[2]) +
-        points[2].distanceBetweenPoints(points[0]);
+    return points[0].distanceTo(points[1]) +
+        points[1].distanceTo(points[2]) +
+        points[2].distanceTo(points[0]);
 }
 
 double Triangle::area() {
     auto p = perimeter() / 2;
     return sqrt(p *
-        (p - points[0].distanceBetweenPoints(points[1])) *
-        (p - points[1].distanceBetweenPoints(points[2])) *
-        (p - points[2].distanceBetweenPoints(points[0]))
+        (p - points[0].distanceTo(points[1])) *
+        (p - points[1].distanceTo(points[2])) *
+        (p - points[2].distanceTo(points[0]))
     );
 }
 
-bool Triangle::areDisconnected(Triangle other) {
+bool Triangle::areDisconnected(const Triangle& other) {
     double thisSlope = 0;
     double thisIntercept = 0;
     double otherSlope = 0;
@@ -75,11 +76,11 @@ bool Triangle::areDisconnected(Triangle other) {
     return true; // Triangles are disconnected
 }
 
-bool Triangle::isWithinBounds(Point point1, Point point2, double x, double y) {
-    double minX = std::min(point1.getX(), point2.getX());
-    double minY = std::min(point1.getY(), point2.getY());
-    double maxX = std::max(point1.getX(), point2.getX());
-    double maxY = std::max(point1.getY(), point2.getY());
+bool Triangle::isWithinBounds(const Point& pointA, const Point& pointB, double x, double y) {
+    double minX = std::min(pointA.getX(), pointB.getX());
+    double minY = std::min(pointA.getY(), pointB.getY());
+    double maxX = std::max(pointA.getX(), pointB.getX());
+    double maxY = std::max(pointA.getY(), pointB.getY());
 
     return (x >= minX && x <= maxX && y >= minY && y <= maxY);
 }

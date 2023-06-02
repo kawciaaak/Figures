@@ -2,8 +2,7 @@
 #include <cmath>
 #include <string>
 
-// The Point class represents a point in 2D space.
-// It holds two coordinates, x and y, and provides methods to manipulate these coordinates.
+
 class Point
 {
 protected:

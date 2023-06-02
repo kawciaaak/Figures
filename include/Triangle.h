@@ -1,24 +1,24 @@
 #pragma once
 
+#include "Figure.h"
 #include "Point.h"
+#include "Segment.h"
 #include <string>
 #include <vector>
 
-class Triangle {
-private:
-    std::vector<Point> points;
-
-    void createLinearFunction(const Point& point1, const Point& point2, double& slope, double& intercept);
-    bool isWithinBounds(const Point& point1, const Point& point2, double x, double y);
-
+class Triangle : public Figure {
 public:
-    Triangle(const Point& _a, const Point& _b, const Point& _c);
+    Triangle() = default;
+    Triangle(const Point pointA, const Point pointB, const Point pointC);
+    ~Triangle() = default;
 
     std::string getObjectName() const;
     std::string getObjectCoordinate() const;
 
     double perimeter();
     double area();
+
+    bool isWithinBounds(const Point& pointA, const Point& pointB, double x, double y);
 
     bool areDisconnected(const Triangle& other);
 };

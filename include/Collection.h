@@ -12,38 +12,43 @@ public:
     Collection() = default;
     ~Collection() = default;
 
-    void navigateMenu(int& userChoice);
+    Point createPoint();
+
+    bool arePointsCollinear(const Point& firstPoint, const Point& secondPoint, const Point& thirdPoint) const;
+    bool isRightTriangle(const Point& firstPoint, const Point& secondPoint, const Point& thirdPoint) const;
     void addFigure();
     void addSegment();
     void addTriangle();
+    void displayAllFigures() const;
+    void displaySegments(int& choice);
+    void displayTriangles(int& choice);
+    void chooseFigureIndex(int& userChoice);
     void moveFigure();
     void rotateFigure();
-    void calculateLength();
-    void checkParallel();
-    void checkPerpendicular();
-    void findIntersection();
-    void calculateAreaAndPerimeter();
     void calculateDistance();
-    void checkDisconnected();
-    void calculateHypotenuse();
-    void runApplication();
-    void displayAllFigures() const;
-    void displaySegments(int& userChoice);
-    void displayTriangles(int& userChoice);
-    void pickFigure(int& userChoice);
-    void checkPointOnSegment() const;
 
-    Point createPoint();
-    bool checkIfCollinear(Point firstPoint, Point secondPoint, Point thirdPoint) const;
-    bool checkIfRight(Point firstPoint, Point secondPoint, Point thirdPoint) const;
-    void handleInputError(double& input, const std::string& errorMessage);
     void clearScreen();
-    void showError(const std::string& errorMessage);
-    Point verifyPoint(Point firstPoint);
-    bool checkPointsValidity(Point firstPoint, Point secondPoint, Point thirdPoint);
-    void addTriangleToFigures(Point firstPoint, Point secondPoint, Point thirdPoint);
+    Point verifyDifferentPoint(const Point& firstPoint);
+    bool arePointsValid(const Point& firstPoint, const Point& secondPoint, const Point& thirdPoint);
+    void rotate();
+    void distance();
+    void length();
+    void pointOnSegment();
+    void parallel();
+    void perpendicular();
+    void intersection();
+    void areaAndPerimeter();
+    void disconnected();
+    void hypotenuse();
+    void mainApp();
+    void menu(int& choice);
+    double getDoubleInput(const std::string& prompt);
     void inputPointCoordinates(double& x, double& y);
     void inputIndex(int& userChoice);
     void inputVector(double& x, double& y);
     void inputAngle(double& angle);
+
+    template <typename T>
+    void handleInputError(T& input, const std::string& errorMessage);
+
 };

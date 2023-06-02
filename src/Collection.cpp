@@ -1,4 +1,4 @@
-#include "include/Collection.h"
+#include "../include/Collection.h"
 
 Point Collection::createPoint() {
     double x = 0;
@@ -48,7 +48,7 @@ void Collection::addFigure() {
         addTriangle();
         break;
     default:
-        showError("Error. Try again");
+        std::cout << "Error. Try again";
         clearScreen();
         break;
     }
@@ -59,7 +59,7 @@ void Collection::addSegment() {
     Point secondPoint = createPoint();
 
     while (firstPoint.getX() == secondPoint.getX() && firstPoint.getY() == secondPoint.getY()) {
-        showError("Points must differ from each other\nTry again: ");
+        std::cout << "Points must differ from each other\nTry again: ";
         secondPoint = createPoint();
     }
 
@@ -80,7 +80,14 @@ void Collection::addTriangle() {
         }
     }
 
-    addTriangleToFigures(firstPoint, secondPoint, thirdPoint);
+    if (isRightTriangle(firstPoint, secondPoint, thirdPoint)) {
+        figures.push_back(std::make_unique<RightTriangle>(firstPoint, secondPoint, thirdPoint));
+        std::cout << "Right Triangle added" << std::endl;
+    }
+    else {
+        figures.push_back(std::make_unique<Triangle>(firstPoint, secondPoint, thirdPoint));
+        std::cout << "Triangle added" << std::endl;
+    }
 }
 
 void Collection::displayAllFigures() const {
@@ -89,6 +96,31 @@ void Collection::displayAllFigures() const {
         std::cout << "[" << figureCounter << "] " << figure->getObjectName() << " " << figure->getObjectCoordinate() << std::endl;
         figureCounter++;
     }
+}
+
+void Collection::displaySegments(int& choice) {
+    int i = 1;
+    for (const auto& figure : figures) {
+        if (auto segment = dynamic_cast<RightTriangle*>(figure.get())) {
+            std::cout << "[" << i << "]" << segment->getObjectName() << " " << segment->getObjectCoordinate() << std::endl;
+        }
+        i++;
+    }
+    inputIndex(choice);
+}
+
+void Collection::displayTriangles(int& choice) {
+    int i = 1;
+    for (const auto& figure : figures) {
+        if (auto rightTriangle = dynamic_cast<RightTriangle*>(figure.get())) {
+            std::cout << "[" << i << "]" << rightTriangle->getObjectName() << " " << rightTriangle->getObjectCoordinate() << std::endl;
+        }
+        else if (auto triangle = dynamic_cast<Triangle*>(figure.get())) {
+            std::cout << "[" << i << "]" << triangle->getObjectName() << " " << triangle->getObjectCoordinate() << std::endl;
+        }
+        i++;
+    }
+    inputIndex(choice);
 }
 
 void Collection::chooseFigureIndex(int& userChoice) {
@@ -133,10 +165,11 @@ void Collection::rotateFigure() {
 void Collection::calculateDistance() {
     Point firstPoint = createPoint();
     Point secondPoint = createPoint();
-    std::cout << "The distance between points is " << firstPoint.distanceBetweenPoints(secondPoint) << std::endl;
+    std::cout << "The distance between points is " << firstPoint.distanceTo(secondPoint) << std::endl;
 }
 
-void Collection::handleInputError(double& input, const std::string& errorMessage) {
+template<typename T>
+void Collection::handleInputError(T& input, const std::string& errorMessage) {
     while (std::cin.fail()) {
         std::cout << errorMessage;
         std::cin.clear();
@@ -149,15 +182,10 @@ void Collection::clearScreen() {
     system("cls");
 }
 
-void Collection::showError(const std::string& errorMessage) {
-    std::cout << errorMessage << std::endl;
-    userChoice = 0;
-}
-
 Point Collection::verifyDifferentPoint(const Point& firstPoint) {
     Point secondPoint = createPoint();
     while (firstPoint.getX() == secondPoint.getX() && firstPoint.getY() == secondPoint.getY()) {
-        showError("Points must differ from each other\nTry again: ");
+        std::cout << "Points must differ from each other\nTry again: ";
         secondPoint = createPoint();
     }
     return secondPoint;
@@ -167,10 +195,10 @@ bool Collection::arePointsValid(const Point& firstPoint, const Point& secondPoin
     if (
         (firstPoint.getX() == secondPoint.getX() && firstPoint.getY() == secondPoint.getY())
         || (secondPoint.getX() == thirdPoint.getX() && secondPoint.getY() == thirdPoint.getY())) {
-        showError("Points must differ from each other\nTry again: ");
+        std::cout << "Points must differ from each other\nTry again: ";
     }
     else if (!arePointsCollinear(firstPoint, secondPoint, thirdPoint)) {
-        showError("Points cannot be collinear\nTry again: ");
+        std::cout << "Points cannot be collinear\nTry again: ";
     }
     else {
         return true;
@@ -199,7 +227,7 @@ void Collection::rotate() {
 void Collection::distance() {
     Point p1 = createPoint();
     Point p2 = createPoint();
-    std::cout << "The distance between points is " << p1.distanceBetweenPoints(p2) << std::endl;
+    std::cout << "The distance between points is " << p1.distanceTo(p2) << std::endl;
 }
 
 void Collection::length() {
@@ -210,7 +238,7 @@ void Collection::length() {
     }
 }
 
-void Collection::pointOnSegment() const {
+void Collection::pointOnSegment() {
     double x, y = 0;
     int choice = 0;
     std::cout << "Enter the coordinates of the point. x=";
@@ -219,7 +247,7 @@ void Collection::pointOnSegment() const {
     std::cout << "y=";
     std::cin >> y;
     handleInputError(y, "Error. Enter y coordinate again:");
-    std::cout << std::endl;
+    std::cout << std::endl; 
     Point point(x, y);
     displaySegments(choice);
     if (auto segment = dynamic_cast<Segment*>(figures[choice].get())) {
@@ -244,7 +272,7 @@ void Collection::parallel() {
     if (auto firstSegment = dynamic_cast<Segment*>(figures[choiceFirst].get())) {
         if (auto secondSegment = dynamic_cast<Segment*>(figures[choiceSecond].get())) {
             Segment segment = *secondSegment;
-            if (firstSegment->areParallel(segment)) {
+            if (firstSegment->areSegmentsParallel(segment)) {
                 std::cout << "The segments are parallel" << std::endl;
             }
             else {
@@ -266,7 +294,7 @@ void Collection::perpendicular() {
     if (auto firstSegment = dynamic_cast<Segment*>(figures[choiceFirst].get())) {
         if (auto secondSegment = dynamic_cast<Segment*>(figures[choiceSecond].get())) {
             Segment segment = *secondSegment;
-            if (firstSegment->arePerpendicular(segment)) {
+            if (firstSegment->areSegmentsPerpendicular(segment)) {
                 std::cout << "The segments are perpendicular" << std::endl;
             }
             else {
@@ -338,7 +366,7 @@ void Collection::hypotenuse() {
         std::cin >> choice;
         handleInputError(choice, "Error. Enter the index again:");
         if (auto rightTriangle = dynamic_cast<RightTriangle*>(figures[choice - 1].get())) {
-            std::cout << "The length of the hypotenuse is: " << rightTriangle->getHypotenuse() << std::endl;
+            std::cout << "The length of the hypotenuse is: " << rightTriangle->getHypotenuseLength() << std::endl;
         }
     }
     else {
@@ -395,7 +423,7 @@ void Collection::mainApp() {
             loopOn = false;
             break;
         default:
-            showError("Error. Try again");
+            std::cout << "Error. Try again";
             choice = 0;
             break;
         }

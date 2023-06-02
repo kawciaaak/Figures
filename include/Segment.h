@@ -1,7 +1,6 @@
 #pragma once
 #include "Figure.h"
 
-// The Segment class represents a line segment in 2D space.
 class Segment : public Figure
 {
 public:
@@ -12,7 +11,7 @@ public:
     double getLength() const;
 
     std::string getObjectName() const override;
-    std::string getObjectCoordinates() const override;
+    std::string getObjectCoordinate() const override;
 
     bool isPointOnSegment(Point pointToCheck);
     bool areSegmentsParallel(Segment otherSegment);

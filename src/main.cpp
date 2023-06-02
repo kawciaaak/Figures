@@ -1,7 +1,7 @@
-#include "include/collection.h"
+#include "../include/Collection.h"
 
 int main() {
-	collection app;
+	Collection app;
 	app.mainApp();
 	return 0;
 }

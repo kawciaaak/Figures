@@ -1,4 +1,4 @@
-#include "include/Segment.h"
+#include "../include/Segment.h"
 
 Segment::Segment(Point pointA, Point pointB) {
     points.push_back(pointA);
@@ -6,14 +6,14 @@ Segment::Segment(Point pointA, Point pointB) {
 }
 
 double Segment::getLength() const {
-    return points[0].distanceBetweenPoints(points[1]);
+    return points[0].distanceTo(points[1]);
 }
 
 std::string Segment::getObjectName() const {
     return "Segment";
 }
 
-std::string Segment::getObjectCoordinates() const {
+std::string Segment::getObjectCoordinate() const {
     return points[0].getCoordinates("A") + points[1].getCoordinates("B");
 }
 
@@ -64,6 +64,8 @@ bool Segment::areSegmentsPerpendicular(Segment otherSegment) {
     if (thisLineSlope * otherLineSlope == -1) return true;
     else return false;
 }
+
+
 
 void Segment::getIntersectionPoint(Segment otherSegment) {
     if (!areSegmentsParallel(otherSegment)) {

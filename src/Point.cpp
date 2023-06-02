@@ -1,5 +1,5 @@
 #define _USE_MATH_DEFINES
-#include "include/Point.h"
+#include "../include/Point.h"
 
 Point::Point(double xCoordinate, double yCoordinate) {
     x = xCoordinate;
