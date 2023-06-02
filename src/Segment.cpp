@@ -1,6 +1,6 @@
 #include "../include/Segment.h"
 
-Segment::Segment(Point pointA, Point pointB) {
+Segment::Segment(const Point& pointA, const Point& pointB) {
     points.push_back(pointA);
     points.push_back(pointB);
 }
@@ -17,7 +17,7 @@ std::string Segment::getObjectCoordinate() const {
     return points[0].getCoordinates("A") + points[1].getCoordinates("B");
 }
 
-bool Segment::isPointOnSegment(Point pointToCheck) {
+bool Segment::isPointOnSegment(const Point& pointToCheck) {
     double lineSlope = 0;
     double lineIntercept = 0;
 
@@ -37,7 +37,7 @@ bool Segment::isPointOnSegment(Point pointToCheck) {
     return false;
 }
 
-bool Segment::areSegmentsParallel(Segment otherSegment) {
+bool Segment::areSegmentsParallel(const Segment& otherSegment) {
     double thisLineSlope = 0;
     double thisLineIntercept = 0;
     double otherLineSlope = 0;
@@ -51,7 +51,7 @@ bool Segment::areSegmentsParallel(Segment otherSegment) {
     else return false;
 }
 
-bool Segment::areSegmentsPerpendicular(Segment otherSegment) {
+bool Segment::areSegmentsPerpendicular(const Segment& otherSegment) {
     double thisLineSlope = 0;
     double thisLineIntercept = 0;
     double otherLineSlope = 0;
@@ -67,7 +67,7 @@ bool Segment::areSegmentsPerpendicular(Segment otherSegment) {
 
 
 
-void Segment::getIntersectionPoint(Segment otherSegment) {
+void Segment::getIntersectionPoint(const Segment& otherSegment) {
     if (!areSegmentsParallel(otherSegment)) {
         double thisLineSlope = 0;
         double thisLineIntercept = 0;

@@ -6,7 +6,7 @@ class RightTriangle : public Triangle
 {
 public:
     RightTriangle() = default;
-    RightTriangle(const Point pointA, const Point pointB, const Point pointC);
+    RightTriangle(const Point& pointA, const Point& pointB, const Point& pointC);
     ~RightTriangle() = default;
 
     double getHypotenuseLength() const;

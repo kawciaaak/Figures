@@ -5,7 +5,7 @@ class Segment : public Figure
 {
 public:
     Segment() = default;
-    Segment(Point pointA, Point pointB);
+    Segment(const Point& pointA, const Point& pointB);
     ~Segment() = default;
 
     double getLength() const;
@@ -13,8 +13,8 @@ public:
     std::string getObjectName() const override;
     std::string getObjectCoordinate() const override;
 
-    bool isPointOnSegment(Point pointToCheck);
-    bool areSegmentsParallel(Segment otherSegment);
-    bool areSegmentsPerpendicular(Segment otherSegment);
-    void getIntersectionPoint(Segment otherSegment);
+    bool isPointOnSegment(const Point& pointToCheck);
+    bool areSegmentsParallel(const Segment& otherSegment);
+    bool areSegmentsPerpendicular(const Segment& otherSegment);
+    void getIntersectionPoint(const Segment& otherSegment);
 };

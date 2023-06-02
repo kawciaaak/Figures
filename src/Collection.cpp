@@ -1,16 +1,17 @@
 #include "../include/Collection.h"
 
 Point Collection::createPoint() {
-    double x = 0;
-    double y = 0;
-    std::cout << "Enter the coordinates of the point:\n x= ";
-    std::cin >> x;
-    handleInputError(x, "Error. Please enter x coordinate again:");
-    std::cout << "\n y= ";
-    std::cin >> y;
-    handleInputError(y, "Error. Please enter y coordinate again:");
+    double xCoordinate = 0;
+    double yCoordinate = 0;
+    std::cout << "Enter the coordinates of the point:"<< std::endl
+        <<"x = ";
+    std::cin >> xCoordinate;
+    handleInputError(xCoordinate, "Error. Please enter x coordinate again:");
+    std::cout << std::endl << "y = ";
+    std::cin >> yCoordinate;
+    handleInputError(yCoordinate, "Error. Please enter y coordinate again:");
     clearScreen();
-    return Point(x, y);
+    return Point(xCoordinate, yCoordinate);
 }
 
 bool Collection::arePointsCollinear(const Point& firstPoint, const Point& secondPoint, const Point& thirdPoint) const {
@@ -38,7 +39,9 @@ bool Collection::isRightTriangle(const Point& firstPoint, const Point& secondPoi
 
 void Collection::addFigure() {
     int userChoice = 0;
-    std::cout << "[1] Segment\n[2] Triangle\nNext step: ";
+    std::cout << "[1] Segment" << std::endl
+        <<"[2] Triangle" << std::endl
+        << "Next step : ";
     std::cin >> userChoice;
     switch (userChoice) {
     case 1:
@@ -59,7 +62,8 @@ void Collection::addSegment() {
     Point secondPoint = createPoint();
 
     while (firstPoint.getX() == secondPoint.getX() && firstPoint.getY() == secondPoint.getY()) {
-        std::cout << "Points must differ from each other\nTry again: ";
+        std::cout << "Points must differ from each other"<<std::endl
+            <<"Try again : ";
         secondPoint = createPoint();
     }
 
@@ -115,7 +119,8 @@ void Collection::displayTriangles(int& choice) {
         if (auto rightTriangle = dynamic_cast<RightTriangle*>(figure.get())) {
             std::cout << "[" << i << "]" << rightTriangle->getObjectName() << " " << rightTriangle->getObjectCoordinate() << std::endl;
         }
-        else if (auto triangle = dynamic_cast<Triangle*>(figure.get())) {
+        else {
+            auto triangle = dynamic_cast<Triangle*>(figure.get());
             std::cout << "[" << i << "]" << triangle->getObjectName() << " " << triangle->getObjectCoordinate() << std::endl;
         }
         i++;
@@ -135,10 +140,10 @@ void Collection::moveFigure() {
     double x = 0;
     double y = 0;
     chooseFigureIndex(userChoice);
-    std::cout << "\nEnter the vector: x=";
+    std::cout << std::endl << "Enter the vector : x = ";
     std::cin >> x;
     handleInputError(x, "Error. Enter x coordinate again:");
-    std::cout << "y=";
+    std::cout << std::endl << "y=";
     std::cin >> y;
     handleInputError(y, "Error. Enter y coordinate again:");
     figures[userChoice]->moveByVector(x, y);
@@ -150,13 +155,13 @@ void Collection::rotateFigure() {
     double y = 0;
     double angle = 0;
     chooseFigureIndex(userChoice);
-    std::cout << "\nEnter the vector: x=";
+    std::cout << std::endl << "Enter the vector : x = ";
     std::cin >> x;
     handleInputError(x, "Error. Enter x coordinate again:");
-    std::cout << "y=";
+    std::cout << std::endl << "y=";
     std::cin >> y;
     handleInputError(y, "Error. Enter y coordinate again:");
-    std::cout << "Enter angle (in degrees):";
+    std::cout << std::endl << "Enter angle (in degrees):";
     std::cin >> angle;
     handleInputError(angle, "Error. Enter angle again:");
     figures[userChoice]->rotateAroundPoint(x, y, angle);
@@ -195,7 +200,8 @@ bool Collection::arePointsValid(const Point& firstPoint, const Point& secondPoin
     if (
         (firstPoint.getX() == secondPoint.getX() && firstPoint.getY() == secondPoint.getY())
         || (secondPoint.getX() == thirdPoint.getX() && secondPoint.getY() == thirdPoint.getY())) {
-        std::cout << "Points must differ from each other\nTry again: ";
+        std::cout << "Points must differ from each other" << std::endl
+            <<"Try again : ";
     }
     else if (!arePointsCollinear(firstPoint, secondPoint, thirdPoint)) {
         std::cout << "Points cannot be collinear\nTry again: ";
@@ -215,10 +221,10 @@ void Collection::rotate() {
     std::cout << std::endl << "Enter the vector: x=";
     std::cin >> x;
     handleInputError(x, "Error. Enter x coordinate again:");
-    std::cout << "y=";
+    std::cout << std::endl <<"y=";
     std::cin >> y;
     handleInputError(y, "Error. Enter y coordinate again:");
-    std::cout << "Enter angle (in degrees):";
+    std::cout << std::endl << "Enter angle (in degrees):";
     std::cin >> angle;
     handleInputError(angle, "Error. Enter angle again:");
     figures[choice]->rotateAroundPoint(x, y, angle);
@@ -241,10 +247,11 @@ void Collection::length() {
 void Collection::pointOnSegment() {
     double x, y = 0;
     int choice = 0;
-    std::cout << "Enter the coordinates of the point. x=";
+    std::cout << "Enter the coordinates of the point." << std::endl 
+        << "x = ";
     std::cin >> x;
     handleInputError(x, "Error. Enter x coordinate again:");
-    std::cout << "y=";
+    std::cout << std::endl << "y=";
     std::cin >> y;
     handleInputError(y, "Error. Enter y coordinate again:");
     std::cout << std::endl; 
@@ -364,7 +371,7 @@ void Collection::hypotenuse() {
     if (flag > 0) {
         std::cout << "Choose: ";
         std::cin >> choice;
-        handleInputError(choice, "Error. Enter the index again:");
+        inputIndex(choice);
         if (auto rightTriangle = dynamic_cast<RightTriangle*>(figures[choice - 1].get())) {
             std::cout << "The length of the hypotenuse is: " << rightTriangle->getHypotenuseLength() << std::endl;
         }
@@ -455,26 +462,13 @@ void Collection::menu(int& choice) {
     handleInputError(choice, "Error. Enter the choice again:");
 }
 
-double Collection::getDoubleInput(const std::string& prompt) {
-    double value;
-    std::cout << "\n" << prompt;
-    std::cin >> value;
-    while (std::cin.fail()) {
-        std::cout << "Error. Enter the value again: ";
-        std::cin.clear();
-        std::cin.ignore(256, '\n');
-        std::cin >> value;
-    }
-    return value;
-}
-
-void Collection::inputPointCoordinates(double& x, double& y) {
+void Collection::inputPointCoordinates(double& xCoordinate, double& yCoordinate) {
     std::cout << "Enter the coordinates of the point:\n x= ";
-    std::cin >> x;
-    handleInputError(x, "Error. Please enter x coordinate again:");
+    std::cin >> xCoordinate;
+    handleInputError(xCoordinate, "Error. Please enter x coordinate again:");
     std::cout << "\n y= ";
-    std::cin >> y;
-    handleInputError(y, "Error. Please enter y coordinate again:");
+    std::cin >> yCoordinate;
+    handleInputError(yCoordinate, "Error. Please enter y coordinate again:");
     clearScreen();
 }
 
@@ -484,13 +478,13 @@ void Collection::inputIndex(int& userChoice) {
     handleInputError(userChoice, "Error. Enter the index again:");
 }
 
-void Collection::inputVector(double& x, double& y) {
+void Collection::inputVector(double& xVector, double& yVector) {
     std::cout << "\nEnter the vector: x=";
-    std::cin >> x;
-    handleInputError(x, "Error. Enter x coordinate again:");
+    std::cin >> xVector;
+    handleInputError(xVector, "Error. Enter x coordinate again:");
     std::cout << "y=";
-    std::cin >> y;
-    handleInputError(y, "Error. Enter y coordinate again:");
+    std::cin >> yVector;
+    handleInputError(yVector, "Error. Enter y coordinate again:");
 }
 
 void Collection::inputAngle(double& angle) {

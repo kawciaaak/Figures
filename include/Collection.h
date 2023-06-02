@@ -42,10 +42,9 @@ public:
     void hypotenuse();
     void mainApp();
     void menu(int& choice);
-    double getDoubleInput(const std::string& prompt);
-    void inputPointCoordinates(double& x, double& y);
+    void inputPointCoordinates(double& xCoordinate, double& yCoordinate);
     void inputIndex(int& userChoice);
-    void inputVector(double& x, double& y);
+    void inputVector(double& xVector, double& yVector);
     void inputAngle(double& angle);
 
     template <typename T>

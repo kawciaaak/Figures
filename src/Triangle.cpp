@@ -1,7 +1,7 @@
 #include "../include/Triangle.h"
 
 
-Triangle::Triangle(const Point pointA, const Point pointB, const Point pointC) {
+Triangle::Triangle(const Point& pointA, const Point& pointB, const Point& pointC) {
     points.push_back(pointA);
     points.push_back(pointB);
     points.push_back(pointC);
@@ -76,7 +76,7 @@ bool Triangle::areDisconnected(const Triangle& other) {
     return true; // Triangles are disconnected
 }
 
-bool Triangle::isWithinBounds(const Point& pointA, const Point& pointB, double x, double y) {
+bool Triangle::isWithinBounds(const Point& pointA, const Point& pointB, const double& x,const double& y) {
     double minX = std::min(pointA.getX(), pointB.getX());
     double minY = std::min(pointA.getY(), pointB.getY());
     double maxX = std::max(pointA.getX(), pointB.getX());

@@ -10,17 +10,17 @@ protected:
     double y;
 public:
     Point() = default;
-    Point(double xCoordinate, double yCoordinate);
+    Point(const double& xCoordinate, const double& yCoordinate);
     ~Point() = default;
 
-    void rotate(double xOrigin, double yOrigin, double angle);
-    void moveByVector(double xDistance, double yDistance);
+    void rotate(const double& xOrigin, const double& yOrigin, const double& angle);
+    void moveByVector(const double& xDistance, const double& yDistance);
 
-    double distanceTo(Point otherPoint) const;
+    double distanceTo(const Point& otherPoint) const;
 
     double getX() const;
     double getY() const;
-    std::string getCoordinates(std::string pointName) const;
+    std::string getCoordinates(const std::string& pointName) const;
 
-    bool operator==(Point otherPoint) const;
+    bool operator==(const Point& otherPoint) const;
 };

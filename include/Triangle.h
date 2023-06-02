@@ -9,7 +9,7 @@
 class Triangle : public Figure {
 public:
     Triangle() = default;
-    Triangle(const Point pointA, const Point pointB, const Point pointC);
+    Triangle(const Point& pointA, const Point& pointB, const Point& pointC);
     ~Triangle() = default;
 
     std::string getObjectName() const;
@@ -18,7 +18,7 @@ public:
     double perimeter();
     double area();
 
-    bool isWithinBounds(const Point& pointA, const Point& pointB, double x, double y);
+    bool isWithinBounds(const Point& pointA, const Point& pointB, const double& x, const double& y);
 
     bool areDisconnected(const Triangle& other);
 };
