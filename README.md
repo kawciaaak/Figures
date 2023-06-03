@@ -6,20 +6,20 @@ Figures is an application that handles various geometric transformations, calcul
 
 Here's how to install and set up Figures for both Windows and Linux:
 
-# Clone the repository
+1. Clone the repository
 `git clone https://github.com/kawciaaak/Figures.git`
 
-# Change to the project directory
+2. Change to the project directory
 `cd Figures`
 
-# Create a build directory and change to it
+3. Create a build directory and change to it
 `mkdir build`
 `cd build`
 
-# Generate makefile using cmake
+4. Generate makefile using cmake
 `cmake ..`
 
-# Build the project
+5. Build the project
 `make`
 
 ## Usage
