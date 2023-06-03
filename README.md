@@ -14,6 +14,7 @@ Here's how to install and set up Figures for both Windows and Linux:
 
 3. Create a build directory and change to it
 `mkdir build`
+
 `cd build`
 
 4. Generate makefile using cmake
