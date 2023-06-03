@@ -1,3 +1,0 @@
-C:/Users/PC/source/repos/kawciaaak/Figures/build/CMakeFiles/Figures.dir
-C:/Users/PC/source/repos/kawciaaak/Figures/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/PC/source/repos/kawciaaak/Figures/build/CMakeFiles/ZERO_CHECK.dir
