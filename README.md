@@ -34,7 +34,7 @@ To start using Figures, follow these steps:
 
 1. Run the program.
 
-2. Begin creating objects, segments, or triangles using the provided interface.
+2. Begin creating objects like segments or triangles using the provided interface.
 
 3. Once your figures are created, you can start performing mathematical operations on them
 
