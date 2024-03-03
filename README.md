@@ -1,6 +1,6 @@
 # Figures
 
-Figures is an application that handles various geometric transformations, calculations related tothese figures, and certain properties like parallelism,perpendicularity, and disjointness for geometric figures such as segments, triangles and right triangles.
+Figures is an application that handles various geometric transformations, calculations related tothese figures, and certain properties like parallelism, perpendicularity, and disjointness for geometric figures such as segments, triangles and right triangles.
 
 ## Installation
 
@@ -26,7 +26,7 @@ Here's how to install and set up Figures for both Windows and Linux:
 
 5. Build the project
 
-`make`
+`cmake --build . --config Release`
 
 ## Usage
 
