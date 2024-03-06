@@ -1,32 +1,39 @@
 #include "right_triangle.h"
 
-RightTriangle::RightTriangle(const Point& pointA, const Point& pointB, const Point& pointC) {
-    points_.push_back(pointA);
-    points_.push_back(pointB);
-    points_.push_back(pointC);
+RightTriangle::RightTriangle(const Point &first_point, const Point &second_point, const Point &third_point)
+{
+    points_.push_back(first_point);
+    points_.push_back(second_point);
+    points_.push_back(third_point);
 }
 
-double RightTriangle::GetHypotenuseLength() const {
-    std::vector<Segment> triangleSides;
-    std::vector<double> sideLengths;
-    int nextIndex = 0;
+double RightTriangle::GetHypotenuseLength() const
+{
+    std::vector<Segment> triangle_sides;
+    std::vector<double> side_lengths;
+    int next_index = 0;
 
     // Construct all sides of the triangle
-    for (int i = 0; i < 3; i++) {
-        if (i != 2) nextIndex = i + 1;
-        else nextIndex = 0;
-        triangleSides.push_back(Segment(points_[i], points_[nextIndex]));
+    for (int i = 0; i < 3; i++)
+    {
+        if (i != 2)
+            next_index = i + 1;
+        else
+            next_index = 0;
+        triangle_sides.push_back(Segment(points_[i], points_[next_index]));
     }
 
     // Calculate and store lengths of the sides
-    for (const auto& side : triangleSides) {
-        sideLengths.push_back(side.getLength());
+    for (const auto &side : triangle_sides)
+    {
+        side_lengths.push_back(side.GetLength());
     }
 
     // Return the length of the longest side (hypotenuse)
-    return *std::max_element(sideLengths.begin(), sideLengths.end());
+    return *std::max_element(side_lengths.begin(), side_lengths.end());
 }
 
-std::string RightTriangle::GetObjectName() const {
+std::string RightTriangle::GetObjectName() const
+{
     return "Right triangle";
 }
