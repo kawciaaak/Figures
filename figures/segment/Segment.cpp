@@ -1,5 +1,5 @@
 #include "segment.h"
-
+using namespace Figures_space;
 Segment::Segment(const Point &first_point, const Point &second_point)
 {
     points_.push_back(first_point);
@@ -103,8 +103,8 @@ void Segment::GetIntersectionPoint(const Segment &other_segment)
 
         if (x_intersection >= x_min && x_intersection <= x_max && y_intersection >= y_min && y_intersection <= y_max)
         {
-            Point intersectionPoint = {x_intersection, y_intersection};
-            std::cout << intersectionPoint.CoordinatesToString("Intersection point: ");
+            Point intersection_point = {x_intersection, y_intersection};
+            std::cout << intersection_point.CoordinatesToString("Intersection point: ");
         }
         else
         {

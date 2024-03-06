@@ -1,5 +1,5 @@
 #include "figure.h"
-
+using namespace Figures_space;
 void Figure::MoveByVector(const double& vector_x_coordinate, const double& vector_y_coordinate) {
     for (auto& point : points_) {
         point.MovePointByVector(vector_x_coordinate, vector_y_coordinate);

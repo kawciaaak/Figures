@@ -6,6 +6,8 @@
 #include <memory>
 #include <iostream>
 
+namespace Collection_space{
+using namespace Figures_space;
 class Collection
 {
 public:
@@ -62,5 +64,7 @@ public:
 private:
     std::vector<std::unique_ptr<IFigure>> figures_;
 };
+} // namespace Collection_space
+
 
 #endif // FIGURES_LIB_COLLECTION_COLLECTION_H

@@ -4,9 +4,10 @@
 #include <cmath>
 #include <string>
 
-class Point
-{
-public:
+namespace Figures_space{
+    class Point
+    {
+    public:
     Point() = default;
     Point(const double &x_coordinate, const double &y_coordinate);
     ~Point() = default;
@@ -22,9 +23,10 @@ public:
 
     bool operator==(const Point &other_point) const;
 
-protected:
+    protected:
     double x_coordinate_;
     double y_coordinate_;
 };
+} // namespace Figures_space
 
 #endif // FIGURES_FIGURES_POINT_POINT_H

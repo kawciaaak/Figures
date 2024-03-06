@@ -4,9 +4,10 @@
 #include "i_figure.h"
 #include <vector>
 
-class Figure : public IFigure
-{
-public:
+namespace Figures_space {
+    class Figure : public IFigure
+    {
+    public:
     Figure();
 
     void MoveByVector(const double &vector_x_coordinate, const double &vector_y_coordinate) override;
@@ -18,8 +19,9 @@ public:
     virtual void CreateLinearFunction(const Point &, const Point &, const double &, const double &) = 0;
     virtual bool IsPointOnLinearFunction(const Point &, const double &, const double &) = 0;
 
-protected:
+    protected:
     std::vector<Point> points_;
-};
+    };
+} // namespace Figures_space
 
 #endif // FIGURES_FIGURES_FIGURES_H

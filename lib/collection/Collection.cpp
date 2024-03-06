@@ -1,5 +1,6 @@
 #include "Collection.h"
-
+using namespace Figures_space;
+using namespace Collection_space;
 Point Collection::InitPoint()
 {
     double x_coordinate = 0;

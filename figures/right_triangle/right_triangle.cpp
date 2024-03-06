@@ -1,5 +1,5 @@
 #include "right_triangle.h"
-
+using namespace Figures_space;
 RightTriangle::RightTriangle(const Point &first_point, const Point &second_point, const Point &third_point)
 {
     points_.push_back(first_point);

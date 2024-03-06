@@ -1,6 +1,8 @@
 #define _USE_MATH_DEFINES
 #include "point.h"
 
+using namespace Figures_space;
+
 Point::Point(const double &x_coordinate, const double &y_coordinate)
 {
     x_coordinate_ = x_coordinate;
