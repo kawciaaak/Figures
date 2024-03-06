@@ -57,7 +57,7 @@ bool Triangle::AreTrianglesDisconnected(const Triangle &other)
         second_index = (firstIndex != 2) ? firstIndex + 1 : 0;
 
         // Create a linear function for the side of this triangle
-            CreateLinearFunction(points_[firstIndex], points_[second_index], this_slope, this_intercept);
+        CreateLinearFunction(points_[firstIndex], points_[second_index], this_slope, this_intercept);
 
         for (int otherFirstIndex = 0; otherFirstIndex < 3; otherFirstIndex++)
         {
@@ -65,7 +65,7 @@ bool Triangle::AreTrianglesDisconnected(const Triangle &other)
             other_second_ndex = (otherFirstIndex != 2) ? otherFirstIndex + 1 : 0;
 
             // Create a linear function for the side of the other triangle
-               CreateLinearFunction(other.points_[otherFirstIndex], other.points_[other_second_ndex], other_slope, other_intercept);
+            CreateLinearFunction(other.points_[otherFirstIndex], other.points_[other_second_ndex], other_slope, other_intercept);
 
             // Check if the lines are not parallel
             if (this_slope != other_intercept)
