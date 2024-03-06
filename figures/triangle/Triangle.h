@@ -17,6 +17,9 @@ public:
 
     bool IsWithinBounds(const Point &first_point, const Point &second_point, const double &x, const double &y) const;
     bool AreTrianglesDisconnected(const Triangle &other);
+
+    void CreateLinearFunction(const Point &, const Point &, const double &, const double &) override;
+    bool IsPointOnLinearFunction(const Point &, const double &, const double &) override;
 };
 
 #endif // FIGURES_TRIANGLE_TRIANGLE_H
