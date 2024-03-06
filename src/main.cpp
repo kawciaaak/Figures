@@ -3,5 +3,5 @@
 void main()
 {
 	Collection init_app_;
-	init_app_.mainApp();
+	init_app_.MainApp();
 }

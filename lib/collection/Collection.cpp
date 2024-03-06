@@ -1,4 +1,4 @@
-#include "collection.h"
+#include "Collection.h"
 
 Point Collection::InitPoint()
 {
@@ -7,11 +7,11 @@ Point Collection::InitPoint()
     std::cout << "Enter the coordinates of the point:" << std::endl
               << "x = ";
     std::cin >> x_coordinate;
-    handleInputError(x_coordinate, "Error. Please enter x coordinate again:");
+    HandleInputError(x_coordinate, "Error. Please enter x coordinate again:");
     std::cout << std::endl
               << "y = ";
     std::cin >> y_coordinate;
-    handleInputError(y_coordinate, "Error. Please enter y coordinate again:");
+    HandleInputError(y_coordinate, "Error. Please enter y coordinate again:");
     ClearScreen();
     return Point(x_coordinate, y_coordinate);
 }
@@ -42,7 +42,7 @@ bool Collection::IsRightTriangle(const Point &first_point, const Point &second_p
     return (std::pow(sides[0], 2) + std::pow(sides[1], 2)) == std::pow(sides[2], 2);
 }
 
-void Collection::  AddFigure()
+void Collection::AddFigure()
 {
     int user_choice = 0;
     std::cout << "[1] Segment" << std::endl
@@ -82,166 +82,166 @@ void Collection::AddSegment()
 
 void Collection::AddTriangle()
 {
-    Point firstPoint = createPoint();
-    Point secondPoint = verifyDifferentPoint(firstPoint);
-    Point thirdPoint;
+    Point first_point = InitPoint();
+    Point second_point = VerifyDifferentPoint(first_point);
+    Point third_point;
 
-    bool isPointValid = false;
-    while (!isPointValid)
+    bool is_point_valid = false;
+    while (!is_point_valid)
     {
-        thirdPoint = createPoint();
-        if (arePointsValid(firstPoint, secondPoint, thirdPoint))
+        third_point = InitPoint();
+        if (ArePointsValid(first_point, second_point, third_point))
         {
-            isPointValid = true;
+            is_point_valid = true;
         }
     }
 
-    if (isRightTriangle(firstPoint, secondPoint, thirdPoint))
+    if (IsRightTriangle(first_point, second_point, third_point))
     {
-        figures.push_back(std::make_unique<RightTriangle>(firstPoint, secondPoint, thirdPoint));
+        figures_.push_back(std::make_unique<RightTriangle>(first_point, second_point, third_point));
         std::cout << "Right Triangle added" << std::endl;
     }
     else
     {
-        figures.push_back(std::make_unique<Triangle>(firstPoint, secondPoint, thirdPoint));
+        figures_.push_back(std::make_unique<Triangle>(first_point, second_point, third_point));
         std::cout << "Triangle added" << std::endl;
     }
 }
 
-void Collection::displayAllFigures() const
+void Collection::DisplayAllFigures() const
 {
-    int figureCounter = 1;
-    for (const auto &figure : figures)
+    int figure_counter = 1;
+    for (const auto &figure : figures_)
     {
-        std::cout << "[" << figureCounter << "] " << figure->getObjectName() << " " << figure->getObjectCoordinate() << std::endl;
-        figureCounter++;
+        std::cout << "[" << figure_counter << "] " << figure->GetObjectName() << " " << figure->GetObjectCoordinate() << std::endl;
+        figure_counter++;
     }
 }
 
-void Collection::displaySegments(int &choice)
+void Collection::DisplaySegments(int &choice)
 {
     int i = 1;
-    for (const auto &figure : figures)
+    for (const auto &figure : figures_)
     {
         if (auto segment = dynamic_cast<RightTriangle *>(figure.get()))
         {
-            std::cout << "[" << i << "]" << segment->getObjectName() << " " << segment->getObjectCoordinate() << std::endl;
+            std::cout << "[" << i << "]" << segment->GetObjectName() << " " << segment->GetObjectCoordinate() << std::endl;
         }
         i++;
     }
-    inputIndex(choice);
+    InputIndex(choice);
 }
 
-void Collection::displayTriangles(int &choice)
+void Collection::DisplayTriangles(int &choice)
 {
     int i = 1;
-    for (const auto &figure : figures)
+    for (const auto &figure : figures_)
     {
-        if (auto rightTriangle = dynamic_cast<RightTriangle *>(figure.get()))
+        if (auto right_triangle = dynamic_cast<RightTriangle *>(figure.get()))
         {
-            std::cout << "[" << i << "]" << rightTriangle->getObjectName() << " " << rightTriangle->getObjectCoordinate() << std::endl;
+            std::cout << "[" << i << "]" << right_triangle->GetObjectName() << " " << right_triangle->GetObjectCoordinate() << std::endl;
         }
         else
         {
             auto triangle = dynamic_cast<Triangle *>(figure.get());
-            std::cout << "[" << i << "]" << triangle->getObjectName() << " " << triangle->getObjectCoordinate() << std::endl;
+            std::cout << "[" << i << "]" << triangle->GetObjectName() << " " << triangle->GetObjectCoordinate() << std::endl;
         }
         i++;
     }
-    inputIndex(choice);
+    InputIndex(choice);
 }
 
-void Collection::chooseFigureIndex(int &userChoice)
+void Collection::ChooseFigureIndex(int &user_choice)
 {
-    displayAllFigures();
+    DisplayAllFigures();
     std::cout << "Choose a figure : ";
-    std::cin >> userChoice;
-    handleInputError(userChoice, "Error. Enter the index again:");
+    std::cin >> user_choice;
+    HandleInputError(user_choice, "Error. Enter the index again:");
 }
 
-void Collection::moveFigure()
+void Collection::MoveFigure()
 {
-    int userChoice = 0;
+    int user_choice = 0;
     double x = 0;
     double y = 0;
-    chooseFigureIndex(userChoice);
+    ChooseFigureIndex(user_choice);
     std::cout << std::endl
               << "Enter the vector : x = ";
     std::cin >> x;
-    handleInputError(x, "Error. Enter x coordinate again:");
+    HandleInputError(x, "Error. Enter x coordinate again:");
     std::cout << std::endl
               << "y=";
     std::cin >> y;
-    handleInputError(y, "Error. Enter y coordinate again:");
-    figures[userChoice]->moveByVector(x, y);
+    HandleInputError(y, "Error. Enter y coordinate again:");
+    figures_[user_choice]->MoveByVector(x, y);
 }
 
-void Collection::rotateFigure()
+void Collection::RotateFigure()
 {
-    int userChoice = 0;
+    int user_choice = 0;
     double x = 0;
     double y = 0;
     double angle = 0;
-    chooseFigureIndex(userChoice);
+    ChooseFigureIndex(user_choice);
     std::cout << std::endl
               << "Enter the vector : x = ";
     std::cin >> x;
-    handleInputError(x, "Error. Enter x coordinate again:");
+    HandleInputError(x, "Error. Enter x coordinate again:");
     std::cout << std::endl
               << "y=";
     std::cin >> y;
-    handleInputError(y, "Error. Enter y coordinate again:");
+    HandleInputError(y, "Error. Enter y coordinate again:");
     std::cout << std::endl
               << "Enter angle (in degrees):";
     std::cin >> angle;
-    handleInputError(angle, "Error. Enter angle again:");
-    figures[userChoice]->rotateAroundPoint(x, y, angle);
+    HandleInputError(angle, "Error. Enter angle again:");
+    figures_[user_choice]->RotateAroundPointCoordinates(x, y, angle);
 }
 
-void Collection::calculateDistance()
+void Collection::CalculateDistance()
 {
-    Point firstPoint = createPoint();
-    Point secondPoint = createPoint();
-    std::cout << "The distance between points is " << firstPoint.distanceTo(secondPoint) << std::endl;
+    Point first_point = InitPoint();
+    Point second_point = InitPoint();
+    std::cout << "The distance between points is " << first_point.distanceTo(second_point) << std::endl;
 }
 
 template <typename T>
-void Collection::handleInputError(T &input, const std::string &errorMessage)
+void Collection::HandleInputError(T &input, const std::string &error_message)
 {
     while (std::cin.fail())
     {
-        std::cout << errorMessage;
+        std::cout << error_message;
         std::cin.clear();
         std::cin.ignore(256, '\n');
         std::cin >> input;
     }
 }
 
-void Collection::clearScreen()
+void Collection::ClearScreen()
 {
     system("cls");
 }
 
-Point Collection::verifyDifferentPoint(const Point &firstPoint)
+Point Collection::VerifyDifferentPoint(const Point &first_point)
 {
-    Point secondPoint = createPoint();
-    while (firstPoint.getX() == secondPoint.getX() && firstPoint.getY() == secondPoint.getY())
+    Point second_point = InitPoint();
+    while (first_point.GetXCoordinate() == second_point.GetXCoordinate() && first_point.GetYCoordinate() == second_point.GetYCoordinate())
     {
         std::cout << "Points must differ from each other\nTry again: ";
-        secondPoint = createPoint();
+        second_point = InitPoint();
     }
-    return secondPoint;
+    return second_point;
 }
 
-bool Collection::arePointsValid(const Point &firstPoint, const Point &secondPoint, const Point &thirdPoint)
+bool Collection::ArePointsValid(const Point &first_point, const Point &second_point, const Point &third_point)
 {
     if (
-        (firstPoint.getX() == secondPoint.getX() && firstPoint.getY() == secondPoint.getY()) || (secondPoint.getX() == thirdPoint.getX() && secondPoint.getY() == thirdPoint.getY()))
+        (first_point.GetXCoordinate() == second_point.GetXCoordinate() && first_point.GetYCoordinate() == second_point.GetYCoordinate()) || (second_point.GetXCoordinate() == third_point.GetXCoordinate() && second_point.GetYCoordinate() == third_point.GetYCoordinate()))
     {
         std::cout << "Points must differ from each other" << std::endl
                   << "Try again : ";
     }
-    else if (!arePointsCollinear(firstPoint, secondPoint, thirdPoint))
+    else if (!ArePointsCollinear(first_point, second_point, third_point))
     {
         std::cout << "Points cannot be collinear\nTry again: ";
     }
@@ -252,63 +252,63 @@ bool Collection::arePointsValid(const Point &firstPoint, const Point &secondPoin
     return false;
 }
 
-void Collection::rotate()
+void Collection::Rotate()
 {
     int choice = 0;
-    chooseFigureIndex(choice);
+    ChooseFigureIndex(choice);
     double x = 0;
     double y = 0;
     double angle = 0;
     std::cout << std::endl
               << "Enter the vector: x=";
     std::cin >> x;
-    handleInputError(x, "Error. Enter x coordinate again:");
+    HandleInputError(x, "Error. Enter x coordinate again:");
     std::cout << std::endl
               << "y=";
     std::cin >> y;
-    handleInputError(y, "Error. Enter y coordinate again:");
+    HandleInputError(y, "Error. Enter y coordinate again:");
     std::cout << std::endl
               << "Enter angle (in degrees):";
     std::cin >> angle;
-    handleInputError(angle, "Error. Enter angle again:");
-    figures[choice]->rotateAroundPoint(x, y, angle);
+    HandleInputError(angle, "Error. Enter angle again:");
+    figures_[choice]->RotateAroundPointCoordinates(x, y, angle);
 }
 
-void Collection::distance()
+void Collection::Distance()
 {
-    Point p1 = createPoint();
-    Point p2 = createPoint();
+    Point p1 = InitPoint();
+    Point p2 = InitPoint();
     std::cout << "The distance between points is " << p1.distanceTo(p2) << std::endl;
 }
 
-void Collection::length()
+void Collection::Length()
 {
     int choice = 0;
-    displaySegments(choice);
-    if (auto segment = dynamic_cast<Segment *>(figures[choice].get()))
+    DisplaySegments(choice);
+    if (auto segment = dynamic_cast<Segment *>(figures_[choice].get()))
     {
-        std::cout << "The length of the segment is " << segment->getLength() << std::endl;
+        std::cout << "The length of the segment is " << segment->GetLength() << std::endl;
     }
 }
 
-void Collection::pointOnSegment()
+void Collection::PointOnSegment()
 {
     double x, y = 0;
     int choice = 0;
     std::cout << "Enter the coordinates of the point." << std::endl
               << "x = ";
     std::cin >> x;
-    handleInputError(x, "Error. Enter x coordinate again:");
+    HandleInputError(x, "Error. Enter x coordinate again:");
     std::cout << std::endl
               << "y=";
     std::cin >> y;
-    handleInputError(y, "Error. Enter y coordinate again:");
+    HandleInputError(y, "Error. Enter y coordinate again:");
     std::cout << std::endl;
     Point point(x, y);
-    displaySegments(choice);
-    if (auto segment = dynamic_cast<Segment *>(figures[choice].get()))
+    DisplaySegments(choice);
+    if (auto segment = dynamic_cast<Segment *>(figures_[choice].get()))
     {
-        if (segment->isPointOnSegment(point))
+        if (segment->IsPointOnSegment(point))
         {
             std::cout << "The point is on the segment" << std::endl;
         }
@@ -319,23 +319,23 @@ void Collection::pointOnSegment()
     }
 }
 
-void Collection::parallel()
+void Collection::Parallel()
 {
-    int choiceFirst = 0;
-    int choiceSecond = 0;
-    displaySegments(choiceFirst);
-    displaySegments(choiceSecond);
-    while (choiceFirst == choiceSecond)
+    int choice_first = 0;
+    int choice_second = 0;
+    DisplaySegments(choice_first);
+    DisplaySegments(choice_second);
+    while (choice_first == choice_second)
     {
         std::cout << "You cannot choose the same segment." << std::endl;
-        displaySegments(choiceSecond);
+        DisplaySegments(choice_second);
     }
-    if (auto firstSegment = dynamic_cast<Segment *>(figures[choiceFirst].get()))
+    if (auto first_segment = dynamic_cast<Segment *>(figures_[choice_first].get()))
     {
-        if (auto secondSegment = dynamic_cast<Segment *>(figures[choiceSecond].get()))
+        if (auto second_segment = dynamic_cast<Segment *>(figures_[choice_second].get()))
         {
-            Segment segment = *secondSegment;
-            if (firstSegment->areSegmentsParallel(segment))
+            Segment segment = *second_segment;
+            if (first_segment->AreSegmentsParallel(segment))
             {
                 std::cout << "The segments are parallel" << std::endl;
             }
@@ -347,23 +347,23 @@ void Collection::parallel()
     }
 }
 
-void Collection::perpendicular()
+void Collection::Perpendicular()
 {
-    int choiceFirst = 0;
-    int choiceSecond = 0;
-    displaySegments(choiceFirst);
-    displaySegments(choiceSecond);
-    while (choiceFirst == choiceSecond)
+    int choice_first = 0;
+    int choice_second = 0;
+    DisplaySegments(choice_first);
+    DisplaySegments(choice_second);
+    while (choice_first == choice_second)
     {
         std::cout << "You cannot choose the same segment." << std::endl;
-        displaySegments(choiceSecond);
+        DisplaySegments(choice_second);
     }
-    if (auto firstSegment = dynamic_cast<Segment *>(figures[choiceFirst].get()))
+    if (auto first_segment = dynamic_cast<Segment *>(figures_[choice_first].get()))
     {
-        if (auto secondSegment = dynamic_cast<Segment *>(figures[choiceSecond].get()))
+        if (auto second_segment = dynamic_cast<Segment *>(figures_[choice_second].get()))
         {
-            Segment segment = *secondSegment;
-            if (firstSegment->areSegmentsPerpendicular(segment))
+            Segment segment = *second_segment;
+            if (first_segment->AreSegmentsPerpendicular(segment))
             {
                 std::cout << "The segments are perpendicular" << std::endl;
             }
@@ -375,54 +375,54 @@ void Collection::perpendicular()
     }
 }
 
-void Collection::intersection()
+void Collection::Intersection()
 {
-    int choiceFirst = 0;
-    int choiceSecond = 0;
-    displaySegments(choiceFirst);
-    displaySegments(choiceSecond);
-    while (choiceFirst == choiceSecond)
+    int choice_first = 0;
+    int choice_second = 0;
+    DisplaySegments(choice_first);
+    DisplaySegments(choice_second);
+    while (choice_first == choice_second)
     {
         std::cout << "You cannot choose the same segment." << std::endl;
-        displaySegments(choiceSecond);
+        DisplaySegments(choice_second);
     }
-    if (auto firstSegment = dynamic_cast<Segment *>(figures[choiceFirst].get()))
+    if (auto first_segment = dynamic_cast<Segment *>(figures_[choice_first].get()))
     {
-        if (auto secondSegment = dynamic_cast<Segment *>(figures[choiceSecond].get()))
+        if (auto second_segment = dynamic_cast<Segment *>(figures_[choice_second].get()))
         {
-            Segment segment = *secondSegment;
-            firstSegment->getIntersectionPoint(segment);
+            Segment segment = *second_segment;
+            first_segment->GetIntersectionPoint(segment);
         }
     }
 }
 
-void Collection::areaAndPerimeter()
+void Collection::AreaAndPerimeter()
 {
     int choice = 0;
-    displayTriangles(choice);
-    if (auto triangle = dynamic_cast<Triangle *>(figures[choice].get()))
+    DisplayTriangles(choice);
+    if (auto triangle = dynamic_cast<Triangle *>(figures_[choice].get()))
     {
-        std::cout << "Area: " << triangle->area() << "    Perimeter: " << triangle->perimeter() << std::endl;
+        std::cout << "Area: " << triangle->GetArea() << "    Perimeter: " << triangle->GetParimeter() << std::endl;
     }
 }
 
-void Collection::disconnected()
+void Collection::Disconnected()
 {
-    int choiceFirst = 0;
-    int choiceSecond = 0;
-    displayTriangles(choiceFirst);
-    displayTriangles(choiceSecond);
-    while (choiceFirst == choiceSecond)
+    int choice_first = 0;
+    int choice_second = 0;
+    DisplayTriangles(choice_first);
+    DisplayTriangles(choice_second);
+    while (choice_first == choice_second)
     {
         std::cout << "You cannot choose the same triangle." << std::endl;
-        displayTriangles(choiceSecond);
+        DisplayTriangles(choice_second);
     }
-    if (auto firstTriangle = dynamic_cast<Triangle *>(figures[choiceFirst].get()))
+    if (auto first_triangle = dynamic_cast<Triangle *>(figures_[choice_first].get()))
     {
-        if (auto secondTriangle = dynamic_cast<Triangle *>(figures[choiceSecond].get()))
+        if (auto second_triangle = dynamic_cast<Triangle *>(figures_[choice_second].get()))
         {
-            Triangle triangle = *secondTriangle;
-            if (firstTriangle->areDisconnected(triangle))
+            Triangle triangle = *second_triangle;
+            if (first_triangle->AreTrianglesDisconnected(triangle))
             {
                 std::cout << "The triangles are disconnected" << std::endl;
             }
@@ -434,16 +434,16 @@ void Collection::disconnected()
     }
 }
 
-void Collection::hypotenuse()
+void Collection::Hypotenuse()
 {
     int index = 0;
     int choice = 0;
     int flag = 0;
-    for (int i = 0; i < figures.size(); i++)
+    for (int i = 0; i < figures_.size(); i++)
     {
-        if (auto rightTriangle = dynamic_cast<RightTriangle *>(figures[i].get()))
+        if (auto right_triangle = dynamic_cast<RightTriangle *>(figures_[i].get()))
         {
-            std::cout << i + 1 << ". Right Triangle " << rightTriangle->getObjectCoordinate() << std::endl;
+            std::cout << i + 1 << ". Right Triangle " << right_triangle->GetObjectCoordinate() << std::endl;
             flag++;
         }
     }
@@ -451,10 +451,10 @@ void Collection::hypotenuse()
     {
         std::cout << "Choose: ";
         std::cin >> choice;
-        inputIndex(choice);
-        if (auto rightTriangle = dynamic_cast<RightTriangle *>(figures[choice - 1].get()))
+        InputIndex(choice);
+        if (auto right_triangle = dynamic_cast<RightTriangle *>(figures_[choice - 1].get()))
         {
-            std::cout << "The length of the hypotenuse is: " << rightTriangle->getHypotenuseLength() << std::endl;
+            std::cout << "The length of the hypotenuse is: " << right_triangle->GetHypotenuseLength() << std::endl;
         }
     }
     else
@@ -463,56 +463,56 @@ void Collection::hypotenuse()
     }
 }
 
-void Collection::mainApp()
+void Collection::MainApp()
 {
     int choice = 0;
-    bool loopOn = true;
-    while (loopOn)
+    bool loop_on = true;
+    while (loop_on)
     {
-        menu(choice);
+        Menu(choice);
         switch (choice)
         {
         case 1:
-            addFigure();
+            AddFigure();
             break;
         case 2:
-            displayAllFigures();
+            DisplayAllFigures();
             break;
         case 3:
-            moveFigure();
+            MoveFigure();
             break;
         case 4:
-            rotateFigure();
+            RotateFigure();
             break;
         case 5:
-            calculateDistance();
+            CalculateDistance();
             break;
         case 6:
-            length();
+            Length();
             break;
         case 7:
-            pointOnSegment();
+            PointOnSegment();
             break;
         case 8:
-            parallel();
+            Parallel();
             break;
         case 9:
-            perpendicular();
+            Perpendicular();
             break;
         case 10:
-            intersection();
+            Intersection();
             break;
         case 11:
-            areaAndPerimeter();
+            AreaAndPerimeter();
             break;
         case 12:
-            disconnected();
+            Disconnected();
             break;
         case 13:
-            hypotenuse();
+            Hypotenuse();
             break;
         case 0:
-            loopOn = false;
+            loop_on = false;
             break;
         default:
             std::cout << "Error. Try again";
@@ -522,11 +522,11 @@ void Collection::mainApp()
         std::string click;
         std::cout << "\nPress any key to continue ";
         std::cin >> click;
-        clearScreen();
+        ClearScreen();
     }
 }
 
-void Collection::menu(int &choice)
+void Collection::Menu(int &choice)
 {
     std::cout << "MENU" << std::endl;
     std::cout << "[1] Add figure" << std::endl;
@@ -543,42 +543,7 @@ void Collection::menu(int &choice)
     std::cout << "[12] Check if triangles are disconnected" << std::endl;
     std::cout << "[13] Calculate hypotenuse of right triangle" << std::endl;
     std::cout << "[0] Exit" << std::endl;
-    std::cout << "Next step: ";
+    std::cout << "Choice : ";
     std::cin >> choice;
-    handleInputError(choice, "Error. Enter the choice again:");
-}
-
-void Collection::inputPointCoordinates(double &xCoordinate, double &yCoordinate)
-{
-    std::cout << "Enter the coordinates of the point:\n x= ";
-    std::cin >> xCoordinate;
-    handleInputError(xCoordinate, "Error. Please enter x coordinate again:");
-    std::cout << "\n y= ";
-    std::cin >> yCoordinate;
-    handleInputError(yCoordinate, "Error. Please enter y coordinate again:");
-    clearScreen();
-}
-
-void Collection::inputIndex(int &userChoice)
-{
-    std::cout << "Choose a figure : ";
-    std::cin >> userChoice;
-    handleInputError(userChoice, "Error. Enter the index again:");
-}
-
-void Collection::inputVector(double &xVector, double &yVector)
-{
-    std::cout << "\nEnter the vector: x=";
-    std::cin >> xVector;
-    handleInputError(xVector, "Error. Enter x coordinate again:");
-    std::cout << "y=";
-    std::cin >> yVector;
-    handleInputError(yVector, "Error. Enter y coordinate again:");
-}
-
-void Collection::inputAngle(double &angle)
-{
-    std::cout << "Enter angle (in degrees):";
-    std::cin >> angle;
-    handleInputError(angle, "Error. Enter angle again:");
+    HandleInputError(choice, "Error. Enter a number from 0 to 13: ");
 }

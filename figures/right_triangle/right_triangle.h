@@ -8,11 +8,11 @@ class RightTriangle : public Triangle
 {
 public:
     RightTriangle() = delete;
-    RightTriangle(const Point& pointA, const Point& pointB, const Point& pointC);
+    RightTriangle(const Point &first_point, const Point &second_point, const Point &third_point);
     ~RightTriangle() = default;
 
-    double GetHypotenuseLength() const; 
-    std::string GetObjectName() const override; 
+    double GetHypotenuseLength() const;
+    std::string GetObjectName() const override;
 };
 
 #endif // FIGURES_FIGURES_RIGHT_TRIANGLE_RIGHT_TRIANGLE_H
