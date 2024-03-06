@@ -1,7 +1,7 @@
-#include "../include/Collection.h"
+#include "..\lib\collection\collection.h"
 
-int main() {
-	Collection app;
-	app.mainApp();
-	return 0;
+void main()
+{
+	Collection init_app_;
+	init_app_.mainApp();
 }
