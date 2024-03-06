@@ -6,17 +6,17 @@
 class Triangle : public Figure
 {
 public:
-    Triangle() = delete;
+    Triangle() = default;
     Triangle(const Point &first_point, const Point &second_point, const Point &third_point);
     ~Triangle() = default;
 
-    constexpr char *GetObjectName() { return "Triangle"; }
+    std::string GetObjectName() const;
     std::string GetObjectCoordinate() const;
     double GetParimeter() const;
     double GetArea() const;
 
     bool IsWithinBounds(const Point &first_point, const Point &second_point, const double &x, const double &y) const;
-    bool AreTrianglesDisconnected(const Triangle &other) const;
+    bool AreTrianglesDisconnected(const Triangle &other);
 };
 
 #endif // FIGURES_TRIANGLE_TRIANGLE_H

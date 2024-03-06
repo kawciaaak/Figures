@@ -15,6 +15,9 @@ public:
     std::string GetObjectName() const = 0;
     std::string GetObjectCoordinate() const = 0;
 
+    virtual void CreateLinearFunction(const Point &, const Point &, const double &, const double &) = 0;
+    virtual bool IsPointOnLinearFunction(const Point &, const double &, const double &) = 0;
+
 protected:
     std::vector<Point> points_;
 };

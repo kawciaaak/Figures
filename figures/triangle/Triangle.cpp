@@ -14,6 +14,11 @@ std::string Triangle::GetObjectCoordinate() const
            points_[2].CoordinatesToString("C");
 }
 
+std::string Triangle::GetObjectName() const
+{
+    return "Triangle";
+}
+
 double Triangle::GetParimeter() const
 {
     return points_[0].distanceTo(points_[1]) +
@@ -31,47 +36,47 @@ double Triangle::GetArea() const
                 (parimeter - points_[2].distanceTo(points_[0])));
 }
 
-bool Triangle::AreTrianglesDisconnected(const Triangle &other) const
+bool Triangle::AreTrianglesDisconnected(const Triangle &other)
 {
-    double thisSlope = 0;
-    double thisIntercept = 0;
-    double otherSlope = 0;
-    double otherIntercept = 0;
+    double this_slope = 0;
+    double this_intercept = 0;
 
-    double intersectionX = 0;
-    double intersectionY = 0;
+    double other_slope = 0;
+    double other_intercept = 0;
 
-    int secondIndex = 0;
-    int otherSecondIndex = 0;
+    double x_intersection = 0;
+    double y_intersection = 0;
+
+    int second_index = 0;
+    int other_second_ndex = 0;
 
     // Iterate through all sides of the triangles
     for (int firstIndex = 0; firstIndex < 3; firstIndex++)
     {
         // Determine the index of the second point of the side
-        secondIndex = (firstIndex != 2) ? firstIndex + 1 : 0;
+        second_index = (firstIndex != 2) ? firstIndex + 1 : 0;
 
         // Create a linear function for the side of this triangle
-        //    createLinearFunction(points_[firstIndex], points_[secondIndex], thisSlope, thisIntercept);
+            CreateLinearFunction(points_[firstIndex], points_[second_index], this_slope, this_intercept);
 
         for (int otherFirstIndex = 0; otherFirstIndex < 3; otherFirstIndex++)
         {
             // Determine the index of the second point of the side of the other triangle
-            otherSecondIndex = (otherFirstIndex != 2) ? otherFirstIndex + 1 : 0;
+            other_second_ndex = (otherFirstIndex != 2) ? otherFirstIndex + 1 : 0;
 
             // Create a linear function for the side of the other triangle
-            //   createLinearFunction(other.points_[otherFirstIndex], other.points_[otherSecondIndex], otherSlope, otherIntercept);
+               CreateLinearFunction(other.points_[otherFirstIndex], other.points_[other_second_ndex], other_slope, other_intercept);
 
             // Check if the lines are not parallel
-            if (thisSlope != otherIntercept)
+            if (this_slope != other_intercept)
             {
                 // Find intersection point of two lines
-                intersectionX = (otherIntercept - thisIntercept) / (thisSlope - otherSlope);
-                intersectionY = thisSlope * intersectionX + thisIntercept;
+                x_intersection = (other_intercept - this_intercept) / (this_slope - other_slope);
+                y_intersection = this_slope * x_intersection + this_intercept;
 
                 // Check if intersection point is within the bounds of both lines (i.e., sides of the triangles)
-                if (/*isWithinBounds(points_[firstIndex], points_[secondIndex], intersectionX, intersectionY) &&
-                    isWithinBounds(other.points_[otherFirstIndex], other.points_[otherSecondIndex], intersectionX, intersectionY) */
-                )
+                if (IsWithinBounds(points_[firstIndex], points_[second_index], x_intersection, y_intersection) &&
+                    IsWithinBounds(other.points_[otherFirstIndex], other.points_[other_second_ndex], x_intersection, y_intersection))
                 {
                     return false; // Triangles are not disconnected
                 }
