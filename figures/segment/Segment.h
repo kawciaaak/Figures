@@ -3,8 +3,9 @@
 
 #include "..\figures\figure.h"
 #include <iostream>
-
-class Segment : public Figure
+namespace Figures{
+  namespace GeometricFigures{
+class Segment : public Figure_handler
 {
 public:
   Segment() = default;
@@ -24,5 +25,7 @@ public:
   void CreateLinearFunction(const Point &, const Point &, const double &, const double &) override;
   bool IsPointOnLinearFunction(const Point &, const double &, const double &) override;
 };
+} // namespace Figures_space
+}
 
 #endif // FIGURES_FIGURES_SEGMENT_SEGMENT_H

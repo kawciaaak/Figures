@@ -4,6 +4,8 @@
 #include "..\figures\triangle\triangle.h"
 #include <algorithm>
 
+namespace Figures{
+    namespace GeometricFigures{
 class RightTriangle : public Triangle
 {
 public:
@@ -14,5 +16,7 @@ public:
     double GetHypotenuseLength() const;
     std::string GetObjectName() const override;
 };
+} //  namespace Figures_space
+}
 
 #endif // FIGURES_FIGURES_RIGHT_TRIANGLE_RIGHT_TRIANGLE_H

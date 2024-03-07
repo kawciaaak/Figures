@@ -5,12 +5,15 @@
 #include "..\figures\right_triangle\right_triangle.h"
 #include <memory>
 #include <iostream>
+namespace Figures{
+namespace Collection{
 
-class Collection
+
+class Collection_handler
 {
 public:
-    Collection() = default;
-    ~Collection() = default;
+    Collection_handler() = default;
+    ~Collection_handler() = default;
 
     // Initialization
     Point InitPoint();
@@ -62,5 +65,8 @@ public:
 private:
     std::vector<std::unique_ptr<IFigure>> figures_;
 };
+}  // namespace Collection_space
+}
+
 
 #endif // FIGURES_LIB_COLLECTION_COLLECTION_H

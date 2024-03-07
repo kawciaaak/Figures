@@ -1,6 +1,9 @@
 #define _USE_MATH_DEFINES
 #include "point.h"
 
+namespace Figures{
+    namespace GeometricFigures{
+
 Point::Point(const double &x_coordinate, const double &y_coordinate)
 {
     x_coordinate_ = x_coordinate;
@@ -47,4 +50,6 @@ double Point::distanceTo(const Point &other_point) const
 bool Point::operator==(const Point &other_point) const
 {
     return (x_coordinate_ == other_point.x_coordinate_ && y_coordinate_ == other_point.y_coordinate_);
+}
+    }
 }
