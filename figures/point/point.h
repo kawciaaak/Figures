@@ -4,7 +4,8 @@
 #include <cmath>
 #include <string>
 
-namespace Figures_space{
+namespace Figures{
+    namespace GeometricFigures{
     class Point
     {
     public:
@@ -28,5 +29,6 @@ namespace Figures_space{
     double y_coordinate_;
 };
 } // namespace Figures_space
+}
 
 #endif // FIGURES_FIGURES_POINT_POINT_H

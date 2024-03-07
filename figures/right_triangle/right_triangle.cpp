@@ -1,5 +1,6 @@
 #include "right_triangle.h"
-using namespace Figures_space;
+namespace Figures{
+    namespace GeometricFigures{
 RightTriangle::RightTriangle(const Point &first_point, const Point &second_point, const Point &third_point)
 {
     points_.push_back(first_point);
@@ -36,4 +37,6 @@ double RightTriangle::GetHypotenuseLength() const
 std::string RightTriangle::GetObjectName() const
 {
     return "Right triangle";
+}
+}
 }

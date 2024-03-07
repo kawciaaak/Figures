@@ -1,7 +1,7 @@
 #include "Collection.h"
-using namespace Figures_space;
-using namespace Collection_space;
-Point Collection::InitPoint()
+namespace Figures{
+namespace Collection{
+Point Collection_handler::InitPoint()
 {
     double x_coordinate = 0;
     double y_coordinate = 0;
@@ -17,7 +17,7 @@ Point Collection::InitPoint()
     return Point(x_coordinate, y_coordinate);
 }
 
-bool Collection::ArePointsCollinear(const Point &first_point, const Point &second_point, const Point &third_point) const
+bool Collection_handler::ArePointsCollinear(const Point &first_point, const Point &second_point, const Point &third_point) const
 {
     return (first_point.GetXCoordinate() - second_point.GetYCoordinate()) *
                (first_point.GetXCoordinate() - third_point.GetXCoordinate()) ==
@@ -25,7 +25,7 @@ bool Collection::ArePointsCollinear(const Point &first_point, const Point &secon
                (first_point.GetXCoordinate() - second_point.GetXCoordinate());
 }
 
-bool Collection::IsRightTriangle(const Point &first_point, const Point &second_point, const Point &third_point) const
+bool Collection_handler::IsRightTriangle(const Point &first_point, const Point &second_point, const Point &third_point) const
 {
     std::vector<Segment> triangle_sides;
     std::vector<double> sides;
@@ -43,7 +43,7 @@ bool Collection::IsRightTriangle(const Point &first_point, const Point &second_p
     return (std::pow(sides[0], 2) + std::pow(sides[1], 2)) == std::pow(sides[2], 2);
 }
 
-void Collection::AddFigure()
+void Collection_handler::AddFigure()
 {
     int user_choice = 0;
     std::cout << "[1] Segment" << std::endl
@@ -65,7 +65,7 @@ void Collection::AddFigure()
     }
 }
 
-void Collection::AddSegment()
+void Collection_handler::AddSegment()
 {
     Point first_point = InitPoint();
     Point second_point = InitPoint();
@@ -81,7 +81,7 @@ void Collection::AddSegment()
     std::cout << "Segment added" << std::endl;
 }
 
-void Collection::AddTriangle()
+void Collection_handler::AddTriangle()
 {
     Point first_point = InitPoint();
     Point second_point = VerifyDifferentPoint(first_point);
@@ -109,7 +109,7 @@ void Collection::AddTriangle()
     }
 }
 
-void Collection::DisplayAllFigures() const
+void Collection_handler::DisplayAllFigures() const
 {
     int figure_counter = 1;
     for (const auto &figure : figures_)
@@ -119,7 +119,7 @@ void Collection::DisplayAllFigures() const
     }
 }
 
-void Collection::DisplaySegments(int &choice)
+void Collection_handler::DisplaySegments(int &choice)
 {
     int i = 1;
     for (const auto &figure : figures_)
@@ -133,7 +133,7 @@ void Collection::DisplaySegments(int &choice)
     InputIndex(choice);
 }
 
-void Collection::DisplayTriangles(int &choice)
+void Collection_handler::DisplayTriangles(int &choice)
 {
     int i = 1;
     for (const auto &figure : figures_)
@@ -152,7 +152,7 @@ void Collection::DisplayTriangles(int &choice)
     InputIndex(choice);
 }
 
-void Collection::ChooseFigureIndex(int &user_choice)
+void Collection_handler::ChooseFigureIndex(int &user_choice)
 {
     DisplayAllFigures();
     std::cout << "Choose a figure : ";
@@ -160,7 +160,7 @@ void Collection::ChooseFigureIndex(int &user_choice)
     HandleInputError(user_choice, "Error. Enter the index again:");
 }
 
-void Collection::MoveFigure()
+void Collection_handler::MoveFigure()
 {
     int user_choice = 0;
     double x = 0;
@@ -177,7 +177,7 @@ void Collection::MoveFigure()
     figures_[user_choice]->MoveByVector(x, y);
 }
 
-void Collection::RotateFigure()
+void Collection_handler::RotateFigure()
 {
     int user_choice = 0;
     double x = 0;
@@ -199,7 +199,7 @@ void Collection::RotateFigure()
     figures_[user_choice]->RotateAroundPointCoordinates(x, y, angle);
 }
 
-void Collection::CalculateDistance()
+void Collection_handler::CalculateDistance()
 {
     Point first_point = InitPoint();
     Point second_point = InitPoint();
@@ -207,7 +207,7 @@ void Collection::CalculateDistance()
 }
 
 template <typename T>
-void Collection::HandleInputError(T &input, const std::string &error_message)
+void Collection_handler::HandleInputError(T &input, const std::string &error_message)
 {
     while (std::cin.fail())
     {
@@ -218,12 +218,12 @@ void Collection::HandleInputError(T &input, const std::string &error_message)
     }
 }
 
-void Collection::ClearScreen()
+void Collection_handler::ClearScreen()
 {
     system("cls");
 }
 
-Point Collection::VerifyDifferentPoint(const Point &first_point)
+Point Collection_handler::VerifyDifferentPoint(const Point &first_point)
 {
     Point second_point = InitPoint();
     while (first_point.GetXCoordinate() == second_point.GetXCoordinate() && first_point.GetYCoordinate() == second_point.GetYCoordinate())
@@ -234,7 +234,7 @@ Point Collection::VerifyDifferentPoint(const Point &first_point)
     return second_point;
 }
 
-bool Collection::ArePointsValid(const Point &first_point, const Point &second_point, const Point &third_point)
+bool Collection_handler::ArePointsValid(const Point &first_point, const Point &second_point, const Point &third_point)
 {
     if (
         (first_point.GetXCoordinate() == second_point.GetXCoordinate() && first_point.GetYCoordinate() == second_point.GetYCoordinate()) || (second_point.GetXCoordinate() == third_point.GetXCoordinate() && second_point.GetYCoordinate() == third_point.GetYCoordinate()))
@@ -253,7 +253,7 @@ bool Collection::ArePointsValid(const Point &first_point, const Point &second_po
     return false;
 }
 
-void Collection::Rotate()
+void Collection_handler::Rotate()
 {
     int choice = 0;
     ChooseFigureIndex(choice);
@@ -275,14 +275,14 @@ void Collection::Rotate()
     figures_[choice]->RotateAroundPointCoordinates(x, y, angle);
 }
 
-void Collection::Distance()
+void Collection_handler::Distance()
 {
     Point p1 = InitPoint();
     Point p2 = InitPoint();
     std::cout << "The distance between points is " << p1.distanceTo(p2) << std::endl;
 }
 
-void Collection::Length()
+void Collection_handler::Length()
 {
     int choice = 0;
     DisplaySegments(choice);
@@ -292,7 +292,7 @@ void Collection::Length()
     }
 }
 
-void Collection::PointOnSegment()
+void Collection_handler::PointOnSegment()
 {
     double x, y = 0;
     int choice = 0;
@@ -320,7 +320,7 @@ void Collection::PointOnSegment()
     }
 }
 
-void Collection::Parallel()
+void Collection_handler::Parallel()
 {
     int choice_first = 0;
     int choice_second = 0;
@@ -348,7 +348,7 @@ void Collection::Parallel()
     }
 }
 
-void Collection::Perpendicular()
+void Collection_handler::Perpendicular()
 {
     int choice_first = 0;
     int choice_second = 0;
@@ -376,7 +376,7 @@ void Collection::Perpendicular()
     }
 }
 
-void Collection::Intersection()
+void Collection_handler::Intersection()
 {
     int choice_first = 0;
     int choice_second = 0;
@@ -397,7 +397,7 @@ void Collection::Intersection()
     }
 }
 
-void Collection::AreaAndPerimeter()
+void Collection_handler::AreaAndPerimeter()
 {
     int choice = 0;
     DisplayTriangles(choice);
@@ -407,7 +407,7 @@ void Collection::AreaAndPerimeter()
     }
 }
 
-void Collection::Disconnected()
+void Collection_handler::Disconnected()
 {
     int choice_first = 0;
     int choice_second = 0;
@@ -435,7 +435,7 @@ void Collection::Disconnected()
     }
 }
 
-void Collection::Hypotenuse()
+void Collection_handler::Hypotenuse()
 {
     int index = 0;
     int choice = 0;
@@ -464,7 +464,7 @@ void Collection::Hypotenuse()
     }
 }
 
-void Collection::MainApp()
+void Collection_handler::MainApp()
 {
     int choice = 0;
     bool loop_on = true;
@@ -527,7 +527,7 @@ void Collection::MainApp()
     }
 }
 
-void Collection::Menu(int &choice)
+void Collection_handler::Menu(int &choice)
 {
     std::cout << "MENU" << std::endl;
     std::cout << "[1] Add figure" << std::endl;
@@ -547,4 +547,6 @@ void Collection::Menu(int &choice)
     std::cout << "Choice : ";
     std::cin >> choice;
     HandleInputError(choice, "Error. Enter a number from 0 to 13: ");
+}
+}
 }

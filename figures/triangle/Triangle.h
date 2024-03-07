@@ -2,8 +2,9 @@
 #define FIGURES_TRIANGLE_TRIANGLE_H
 
 #include "..\figures\segment\segment.h"
-namespace Figures_space {
-class Triangle : public Figure
+namespace Figures {
+    namespace GeometricFigures{
+class Triangle : public Figure_handler
 {
 public:
     Triangle() = default;
@@ -22,5 +23,6 @@ public:
     bool IsPointOnLinearFunction(const Point &, const double &, const double &) override;
 };
 } // namespace Figures_space
+}
 
 #endif // FIGURES_TRIANGLE_TRIANGLE_H

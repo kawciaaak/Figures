@@ -1,5 +1,6 @@
 #include "triangle.h"
-using namespace Figures_space;
+namespace Figures{
+    namespace GeometricFigures{
 Triangle::Triangle(const Point &first_point, const Point &second_point, const Point &third_point)
 {
     points_.push_back(first_point);
@@ -95,4 +96,6 @@ bool Triangle::IsWithinBounds(const Point &first_point, const Point &second_poin
     double y_max = std::max(first_point.GetYCoordinate(), second_point.GetYCoordinate());
 
     return (x >= x_min && x <= x_max && y >= y_min && y <= y_max);
+}
+}
 }

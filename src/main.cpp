@@ -1,9 +1,10 @@
 #include "..\lib\collection\collection.h"
 
 
-using namespace Collection_space;
+namespace Figures{
 void main()
 {
-	Collection init_app_;
+	Collection_handler init_app_;
 	init_app_.MainApp();
+}
 }

@@ -4,11 +4,12 @@
 #include "i_figure.h"
 #include <vector>
 
-namespace Figures_space {
-    class Figure : public IFigure
+namespace Figures {
+    namespace GeometricFigures{
+    class Figure_handler : public IFigure
     {
     public:
-    Figure();
+    Figure_handler();
 
     void MoveByVector(const double &vector_x_coordinate, const double &vector_y_coordinate) override;
     void RotateAroundPointCoordinates(const double &x_coordinate, const double &y_coordinate, const double &angle) override;
@@ -23,5 +24,6 @@ namespace Figures_space {
     std::vector<Point> points_;
     };
 } // namespace Figures_space
+}
 
 #endif // FIGURES_FIGURES_FIGURES_H

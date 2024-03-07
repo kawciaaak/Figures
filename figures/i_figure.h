@@ -3,7 +3,8 @@
 
 #include <string>
 #include "..\figures\point\point.h"
-namespace Figures_space{
+namespace Figures{
+  namespace GeometricFigures{
   class IFigure
   {
   public:
@@ -14,6 +15,7 @@ namespace Figures_space{
   virtual std::string GetObjectCoordinate() const = 0;
   };
 } // namespace Figures_space
+}
 
 
 

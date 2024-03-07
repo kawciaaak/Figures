@@ -1,5 +1,6 @@
 #include "segment.h"
-using namespace Figures_space;
+namespace Figures {
+    namespace GeometricFigures{
 Segment::Segment(const Point &first_point, const Point &second_point)
 {
     points_.push_back(first_point);
@@ -113,4 +114,6 @@ void Segment::GetIntersectionPoint(const Segment &other_segment)
     }
     else
         std::cout << "No intersection point found - segments are parallel" << std::endl;
+}
+    }
 }
